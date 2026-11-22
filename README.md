@@ -72,27 +72,27 @@ $$\min_{X} \; [f_1(X), \; f_2(X), \; f_3(X)]$$
   - Forte pénalisation (facteur $\times 5$) des salles sous-dimensionnées par rapport à l'effectif.
 
 ### 2. Spécificités de l'Implémentation
-1. **Dominance Contrainte (Deb et al., 2002)** : Une solution sans conflit ($f_1=0$) domine systématiquement toute solution présentant des conflits, garantissant que la population converge rapidement vers des emplois du temps 100 % valides dès la 50ᵉ génération.
+1. **Dominance Contrainte (Deb et al., 2002)** : Une solution sans conflit ($f_1=0$) domine systématiquement toute solution présentant des conflits, garantissant que la population converge vers des emplois du temps 100 % valides dès la 60ᵉ génération.
 2. **Mutation Dirigée** : Les séances impliquées dans un conflit ont une probabilité de mutation élevée (50 %) pour réparer l'emploi du temps, tandis que les séances saines mutent à un taux faible (5 %) pour préserver les blocs stables.
 3. **Gestion d'Horaires Variables** : Le moteur s'adapte automatiquement aux semaines universitaires asymétriques (ex: 4 créneaux de 1h30 le Lundi, Mardi, Jeudi, Vendredi avec pause déjeuner ; 3 créneaux le Mercredi et Samedi).
 
 ---
 
-## 📈 Résultats et Performance
+## 📈 Résultats et Performance Réelle (Run Loggé)
 
-Sur un problème de référence comportant 3 groupes (80 étudiants), 5 enseignants avec contraintes, 5 salles et 23 séances hebdomadaires :
+Sur un problème de référence comportant 3 groupes (80 étudiants), 5 enseignants avec contraintes, 5 salles et 23 séances hebdomadaires (données exactes issues de `historique_generations.csv`) :
 
-| Critère | Population Initiale (Moyenne) | Solution Optimale NSGA-II | Amélioration |
+| Critère | Population Initiale (Moyenne gén. 0) | Solution Optimale NSGA-II | Évolution Réelle |
 | :--- | :---: | :---: | :---: |
-| **$f_1$ : Conflits** | 29.25 | **0** | **-100% (Emploi du temps 100% valide)** |
-| **$f_2$ : Heures creuses** | 4.63 | **2.00** | **-56.8% de trous étudiants** |
-| **$f_3$ : Inadéquation salles** | 13.48 | **3.42** | **-74.6% d'erreur de capacité** |
+| **$f_1$ : Conflits d'horaires** | 29.69 | **0 [Valide]** | **-100% (Faisabilité intégrale à gén. 60)** |
+| **$f_2$ : Confort étudiant** | 4.43 | **3.48** | **-21.4% vs moyenne initiale** |
+| **$f_3$ : Inadéquation salles** | 13.48 | **3.75** | **-72.2% vs moyenne initiale** |
 
 ---
 
 ## 📄 Rapport Pédagogique PDF
 
-Un rapport complet de 9 pages en français, structuré pour un public découvrant l'algorithmique avancée et intégrant les figures haute résolution de convergence et du front de Pareto, est disponible dans le dossier `docs/` :
+Un rapport complet en français, structuré pour un public découvrant l'algorithmique avancée, mathématiquement rigoureux et intégrant les figures réelles de convergence et du front de Pareto, est disponible dans le dossier `docs/` :
 👉 **[`docs/rapport_moga_nsga2.pdf`](docs/rapport_moga_nsga2.pdf)**
 
 ---

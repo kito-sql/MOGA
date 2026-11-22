@@ -59,7 +59,7 @@ Le programme vous guide à travers 5 étapes de saisie rapide :
 
 Pendant l'évolution, une barre de progression compacte sur une seule ligne vous informe de l'état :
 ```text
-  [████████████████████] 100%  gén  400/400  f1=0  f2=2.00  f3=3.42  ✓100
+  [████████████████████] 100%  gén  400/400  f1=0  f2=3.48  f3=3.75  ✓100
 ```
 
 Une fois l'optimisation terminée, le terminal affiche :

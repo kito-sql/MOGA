@@ -24,13 +24,13 @@ PROBA_MUTATION_GENE     = 0.05
 PROBA_MUTATION_CONFLIT  = 0.50
 DOMINANCE_CONTRAINTE    = True
 
-# Paramètres Heuristiques & G-MOGA
-INIT_HEURISTIQUE       = True
-RATIO_HEURISTIQUE      = 0.5
-DOMINANCE_GUIDEE       = True
+# Paramètres Heuristiques & G-MOGA (désactivés par défaut pour NSGA-II pur)
+INIT_HEURISTIQUE       = False
+RATIO_HEURISTIQUE      = 0.0
+DOMINANCE_GUIDEE       = False
 TRADE_OFF_A23          = 4.0
 TRADE_OFF_A32          = 0.2
-CALCUL_METRIQUES_EMO   = True
+CALCUL_METRIQUES_EMO   = False
 
 RNG = np.random.default_rng(SEED)
 

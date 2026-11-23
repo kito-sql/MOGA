@@ -60,7 +60,17 @@ def objectif_heures_creuses(occ_g):
 
 
 def objectif_salles(ind):
-    """f3 : pénalité d'inadéquation capacité/effectif."""
+    """
+    f3 : pénalité d'inadéquation capacité / effectif.
+    
+    Modélisation explicite de la capacité des salles (Section 9 Beginner Guide) :
+    - Surcapacité (capacité >= taille) : pénalité douce proportionnelle
+      au gaspillage d'espace : (capacite - taille) / capacite.
+    - Sous-capacité (capacité < taille) : pénalité asymétrique sévère (ratio x5.0) :
+      5.0 * (taille - capacite) / taille.
+      Cette modélisation asymétrique décourage drastiquement l'usage de salles sous-dimensionnées
+      tout en fournissant un gradient d'amélioration continu pour le guidage génétique.
+    """
     total = 0.0
     for s in range(C.N_SEANCES):
         capacite = C.SAL_CAP[ind[s, 1]]

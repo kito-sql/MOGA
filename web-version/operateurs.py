@@ -25,6 +25,13 @@ def croisement(parent1, parent2):
 
 
 def seances_en_conflit(ind):
+    """
+    Identifie précisément les séances violant au moins une contrainte dure (f1 > 0) :
+    1. Conflit enseignant : enseignant assigné à plusieurs séances simultanées.
+    2. Conflit groupe : étudiants assignés à plusieurs séances simultanées.
+    3. Conflit salle : salle occupée par plusieurs séances simultanées.
+    4. Indisponibilité enseignant : créneau où l'enseignant n'est pas disponible.
+    """
     occ_e, occ_g, occ_s = calculer_occupations(ind)
     en_conflit = np.zeros(C.N_SEANCES, dtype=bool)
     for s in range(C.N_SEANCES):
@@ -40,6 +47,19 @@ def seances_en_conflit(ind):
 
 
 def mutation(ind):
+    """
+    Mutation stochastique ciblée guidée par les conflits (Section 9 Beginner Guide) :
+    - Taux adaptatif différencié : probabilité élevée (PROBA_MUTATION_CONFLIT = 50%)
+      pour les séances en conflit afin de réparer activement les violations dures,
+      et probabilité modérée (PROBA_MUTATION_GENE = 5%) pour les séances valides
+      afin d'explorer le voisinage sans détruire les blocs sains.
+    - Trois opérateurs stochastiques :
+      * Mode 1 (40%) : Réaffectation vers un créneau de départ valide aléatoire.
+      * Mode 2 (30%) : Réaffectation dans une nouvelle salle.
+      * Mode 3 (30%) : Translation inter-journalière vers un autre jour à la même heure
+                       (préserve le positionnement horaire intra-journalier).
+    Toute modification est filtrée par la sélection élitiste sous dominance de contrainte de NSGA-II.
+    """
     en_conflit = seances_en_conflit(ind)
     ind = ind.copy()
     for s in range(C.N_SEANCES):

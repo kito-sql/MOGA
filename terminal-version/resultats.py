@@ -119,14 +119,35 @@ def extraire_front(pop, F):
 
 
 def meilleur_compromis(solutions):
+    """
+    Sélectionne la solution de meilleur compromis sur le front de Pareto.
+
+    Conformément aux recommandations de l'analyse critique (Beginner Guide Section 9)
+    et de la littérature EMO (Deb et al. 2002, Abraham & Jain 2005) :
+    1. Filtrage strict de faisabilité : seules les solutions réalisables (f1 = 0,
+       aucun conflit d'horaire, salle ou enseignant) sont éligibles.
+    2. Normalisation Min-Max explicite : f2 (confort étudiants) et f3 (adéquation salles)
+       possèdent des ordres de grandeur différents. Pour éliminer tout biais d'échelle,
+       les valeurs sont normalisées sur [0, 1] :
+           norm_f = (f - min(f)) / (max(f) - min(f))
+    3. Distance euclidienne L2 au point utopique idéal (0, 0) :
+           d = sqrt(norm(f2)^2 + norm(f3)^2)
+       La solution minimisant cette distance est désignée comme le meilleur compromis.
+    """
     valides    = [k for k, (_, f) in enumerate(solutions) if f[0] == 0]
     candidats  = valides if valides else list(range(len(solutions)))
     obj        = np.array([solutions[k][1] for k in candidats])
     cols       = [1, 2] if valides else [0, 1, 2]
     sous       = obj[:, cols]
-    etendue    = np.where(np.ptp(sous, axis=0) == 0, 1, np.ptp(sous, axis=0))
+    
+    # Normalisation Min-Max sur [0, 1]
+    ptp_vals   = np.ptp(sous, axis=0)
+    etendue    = np.where(ptp_vals == 0, 1.0, ptp_vals)
     norm       = (sous - sous.min(axis=0)) / etendue
-    return candidats[int(np.argmin(np.linalg.norm(norm, axis=1)))]
+    
+    # Distance euclidienne au point utopique (0, 0)
+    distances  = np.linalg.norm(norm, axis=1)
+    return candidats[int(np.argmin(distances))]
 
 
 def construire_tableau_front(solutions, k_best):

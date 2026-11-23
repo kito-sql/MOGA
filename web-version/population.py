@@ -98,7 +98,8 @@ def individu_heuristique_glouton(max_retries=3):
                     if cap >= taille:
                         pen_salle = (cap - taille) / cap
                     else:
-                        pen_salle = 5.0 * (taille - cap) / taille
+                        # Forte pénalité pour salle sous-dimensionnée afin de garantir la suffisance de capacité
+                        pen_salle = 50.0 + 5.0 * (taille - cap) / taille
 
                     score = conflits * 10000.0 + pen_salle * 2.0 + pen_soft
                     candidats.append((score, conflits, t, r))

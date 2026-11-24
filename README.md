@@ -28,11 +28,22 @@ MOGA/
 │   ├── README.md                  # Instructions détaillées de la version Web
 │   └── [modules algorithmiques]
 │
-└── terminal-version/              # 💻 Version 2 : Version Terminal Épurée (CLI)
-    ├── terminal.py                # Interface console interactive avec grilles ASCII
-    ├── requirements.txt           # Dépendances (numpy, pandas, matplotlib)
-    ├── README.md                  # Instructions détaillées de la version Terminal
-    └── [modules algorithmiques]
+├── terminal-version/              # 💻 Version 2 : Version Terminal Épurée (CLI)
+│   ├── terminal.py                # Interface console interactive avec grilles ASCII
+│   ├── requirements.txt           # Dépendances (numpy, pandas, matplotlib)
+│   ├── README.md                  # Instructions détaillées de la version Terminal
+│   └── [modules algorithmiques]
+│
+├── simple-web-version/            # ✨ Version Web Simplifiée (Pure NSGA-II, stdlib + Flask)
+│   ├── simple_moga.py             # Moteur Pure NSGA-II autonome (sans NumPy/MRV/G-MOGA)
+│   ├── app.py                     # Serveur Flask léger + SSE + graphique SVG
+│   ├── requirements.txt           # Dépendance unique (flask)
+│   └── test_web.py                # Tests d'intégration Flask
+│
+└── simple-terminal-version/       # ✨ Version Terminal Simplifiée (Pure NSGA-II, stdlib)
+    ├── simple_moga.py             # Moteur Pure NSGA-II autonome (sans NumPy/MRV/G-MOGA)
+    ├── terminal.py                # Assistant terminal interactif (--defaults disponible)
+    └── test_terminal.py           # Tests de la version terminal
 ```
 
 ---

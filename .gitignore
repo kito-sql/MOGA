@@ -42,3 +42,4 @@ venv.bak/
 
 # Temporary outputs (keep repository clean)
 *.tmp
+emploi_du_temps_simple.csv
